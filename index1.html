@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOVE U TOO</title>
+    <style>
+        /* Style for video */
+        #background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1; /* Ensure the video stays behind other content */
+        }
+
+        /* Your existing CSS styles */
+        .centered-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            z-index: 1; /* Ensure the text stays above the video */
+        }
+
+        .perks-included {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .perks-included div {
+            font-size: 20px;
+            color: white;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .perks-included div.active {
+            display: block; /* Show active divs */
+            animation: fadeIn 1s forwards; /* Apply fadeIn animation */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <!-- Video background -->
+    <video autoplay muted loop id="background-video">
+        <source src="./weathering.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <!-- Text content and perks -->
+    <div class="centered-text">
+        <h1>CONGRATULATIONS!</h1>
+        <h2>You have successfully enrolled for lifetime premium plus access to mine.</h2>
+        <button class="button" id="perksButton">PERKS INCLUDED  :</button>
+    </div>
+
+    <div class="perks-included">
+        <div class="01">24x7 Support for your every ups and downs</div>
+        
+        <div class="02">If you want you can replace my Kolbalish with yourself</div>
+        <div class="03">Lifetime access to Premium Moral and emotional support.</div>
+        <div class="04">Lifetime shoulder support to lean on.</div>
+        <div class="05">Unlimited hugs and Kisses.</div>
+        <div class="06">Included with lots of love.</div>
+        <div class="07">Constant encouragement in your endeavors as an ideal partner.</div>
+        <div class="08">Always ready to lend an ear to listen your problems.</div>
+        <div class="09">Offering a helping hand whenever required.</div>
+        <!-- Remaining perks -->
+    </div>
+
+    <!-- Audio for the music -->
+    <audio id="background-music" preload="auto" volume="0.5">
+        <source src="./kaise.mp3" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+
+    <!-- JavaScript -->
+    <script>
+        const perksButton = document.getElementById('perksButton');
+        const centeredText = document.querySelector('.centered-text');
+        const perksIncluded = document.querySelector('.perks-included');
+        const backgroundMusic = document.getElementById('background-music');
+
+        document.addEventListener('DOMContentLoaded', function() {
+            backgroundMusic.play();
+        });
+
+        perksButton.addEventListener('click', () => {
+            centeredText.style.display = 'none'; // Hide centered text
+            perksIncluded.style.display = 'block'; // Show the perks when button is clicked
+
+            setTimeout(function() {
+                centeredText.style.display = 'block';
+                perksIncluded.style.display = 'none';
+            }, 25000);
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const perks = document.querySelectorAll('.perks-included div');
+            const perksContainer = document.querySelector('.perks-included');
+            let index = 0;
+
+            function showNextPerk() {
+                if (index < perks.length) {
+                    perks[index].classList.add('active'); // Show the perk
+                    index++;
+                } else {
+                    index = 0; // Reset index to repeat the cycle
+                }
+            }
+
+            perksButton.addEventListener('click', function() {
+                perks.forEach(perk => {
+                    perk.classList.toggle('active');
+                });
+                showNextPerk();
+
+                setTimeout(function() {
+                    perksContainer.style.display = 'none';
+                    perks.forEach(perk => {
+                        perk.classList.remove('active');
+                    });
+                }, 25000);
+            });
+
+            perksContainer.style.display = 'none';
+        });
+    </script>
+</body>
+</html>
